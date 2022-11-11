@@ -1,2 +1,2 @@
 au BufWritePost *.py !make
-vs leetcode.py 
+vs template.py 
