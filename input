@@ -1,0 +1,3 @@
+# this is a comment and will be ignored
+# use the same pythonic syntax eg: "a string variable"
+[1, 1, 2, 2],
