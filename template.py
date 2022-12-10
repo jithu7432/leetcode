@@ -1,13 +1,19 @@
 class Solution:
-    def removeDuplicates(self, arr: list[int]) -> int:
-        ns = len(arr)
-        if ns == 1:
-           return ns
-        i = 1
-        j = 1
-        while j < ns:
-            if arr[j - 1] != arr[j]:
-                arr[i] = arr[j]
-                i += 1
-            j += 1
-        return i
+    @staticmethod
+    def _profit_from_index(j, arr) -> int:
+        if j >= len(arr): return 0
+        prev = arr[j]
+        g = 0
+        for i in range(j, len(arr)):
+            prev = min(prev, arr[i])
+            g = max(g, prev - arr[i])
+        return g
+    def maxProfit(self, arr: list[int]) -> int:
+        g = 0
+        prev = arr[0]
+        for i in range(len(arr)):
+            prev = min(prev, arr[i])
+            if prev - arr[i] > 0:
+                print(prev - arr[i])
+                g = max((prev - arr[i] + self._profit_from_index(i + 1, arr)),g )
+        return g 
