@@ -1,18 +1,39 @@
+from pprint import PrettyPrinter
 from template import Solution
+
+from collections.abc import Generator
+
+
+pp = PrettyPrinter(indent=2).pprint
+def adjacent_4(x: int, y: int) -> Generator[tuple[int, int], None, None]:
+    yield x, y - 1
+    yield x + 1, y
+    yield x, y + 1
+    yield x - 1, y
+
+
+def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
+    for y_d in (-1, 0, 1):
+        for x_d in (-1, 0, 1):
+            if y_d == x_d == 0:
+                continue
+            yield x + x_d, y + y_d 
 
 def main() -> None:
     func = [x for x in dir(Solution) if not x.startswith('_')][0]
-    print(f'Solution.{func}', end=2*'\n')
+    print(f'Solution.{func!r}', end='\n')
     while True:
         try:
             raw_input = input()
-            if not raw_input: break
-            if raw_input.strip().startswith('#'): continue
+            if not raw_input:
+                break
+            if raw_input.strip().startswith('#'):
+                continue
             args = __import__('ast').literal_eval(raw_input)
             pp(getattr(Solution(), func)(*args))
         except EOFError:
             break
 
+
 if __name__ == '__main__':
-    pp = __import__('pprint').PrettyPrinter(indent=2).pprint
     main()

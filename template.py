@@ -1,19 +1,30 @@
 class Solution:
-    @staticmethod
-    def _profit_from_index(j, arr) -> int:
-        if j >= len(arr): return 0
-        prev = arr[j]
-        g = 0
-        for i in range(j, len(arr)):
-            prev = min(prev, arr[i])
-            g = max(g, prev - arr[i])
-        return g
-    def maxProfit(self, arr: list[int]) -> int:
-        g = 0
-        prev = arr[0]
-        for i in range(len(arr)):
-            prev = min(prev, arr[i])
-            if prev - arr[i] > 0:
-                print(prev - arr[i])
-                g = max((prev - arr[i] + self._profit_from_index(i + 1, arr)),g )
-        return g 
+    def gridGame(self, arr: list[list[int]]) -> int:
+        ni = len(arr)
+        nj = len(arr[0])
+
+        i = j = c = 0
+        c += arr[i][j]
+        arr[i][j] = 0
+        while True:
+            if not (i < ni and j < nj):
+                break
+            print(f'{i, j=}')
+            c += arr[i][j]
+            arr[i][j] = 0
+            if i < ni - 1 and arr[i + 1][j] > arr[i][j + 1]:
+                i += 1
+            else:
+                j += 1
+        print(arr)
+        return c
+
+        #  hmap = {}
+        #  for i in range(len(arr)):
+        #      for j in range(len(arr[0])):
+        #          hmap[(i, j)] = arr[i][j] + max(hmap.get((i - 1, j), 0), hmap.get((i, j - 1), 0))
+        #  return hmap[(len(arr) - 1, len(arr[0]) - 1)]
+
+#  4
+#  4
+#  7
