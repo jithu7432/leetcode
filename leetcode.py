@@ -5,6 +5,7 @@ from collections.abc import Generator
 
 
 pp = PrettyPrinter(indent=2).pprint
+
 def adjacent_4(x: int, y: int) -> Generator[tuple[int, int], None, None]:
     yield x, y - 1
     yield x + 1, y
@@ -21,7 +22,7 @@ def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
 
 def main() -> None:
     func = [x for x in dir(Solution) if not x.startswith('_')][0]
-    print(f'Solution.{func!r}', end='\n')
+    print(f'Solution.{func}', end='\n')
     while True:
         try:
             raw_input = input()
