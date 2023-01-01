@@ -6,6 +6,19 @@ from collections.abc import Generator
 
 pp = PrettyPrinter(indent=2).pprint
 
+def _mapper(s: str) -> str:
+    i = 0
+    hmap = {}
+    cout = ''
+    for x in s:
+        if hmap.get(x, False):
+            cout += hmap[x]
+        else:
+            hmap[x] = f'{i}-'
+            cout += f'{i}-'
+            i += 1
+    return cout
+
 def adjacent_4(x: int, y: int) -> Generator[tuple[int, int], None, None]:
     yield x, y - 1
     yield x + 1, y
@@ -18,7 +31,7 @@ def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
         for x_d in (-1, 0, 1):
             if y_d == x_d == 0:
                 continue
-            yield x + x_d, y + y_d 
+            yield x + x_d, y + y_d
 
 def main() -> None:
     func = [x for x in dir(Solution) if not x.startswith('_')][0]
