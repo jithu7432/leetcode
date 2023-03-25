@@ -2,6 +2,7 @@ from pprint import PrettyPrinter
 from template import Solution
 
 from collections.abc import Generator
+from collections import *
 
 
 pp = PrettyPrinter(indent=2).pprint
@@ -19,7 +20,7 @@ def _mapper(s: str) -> str:
             i += 1
     return cout
 
-def adjacent_4(x: int, y: int) -> Generator[tuple[int, int], None, None]:
+def adjacent_4(x: int, y: int):
     yield x, y - 1
     yield x + 1, y
     yield x, y + 1
@@ -35,13 +36,13 @@ def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
 
 def main() -> None:
     func = [x for x in dir(Solution) if not x.startswith('_')][0]
-    print(f'Solution.{func}', end='\n')
+    print(f'==================[Solution.{func}]===================', end='\n')
     while True:
         try:
-            raw_input = input()
+            raw_input = input().strip()
             if not raw_input:
                 break
-            if raw_input.strip().startswith('#'):
+            if raw_input.startswith('#') or raw_input.startswith("/*"):
                 continue
             args = __import__('ast').literal_eval(raw_input)
             pp(getattr(Solution(), func)(*args))
