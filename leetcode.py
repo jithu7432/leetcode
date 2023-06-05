@@ -1,33 +1,14 @@
-from pprint import PrettyPrinter
+import inspect
 from template import Solution
+from pprint import PrettyPrinter
 
-from collections.abc import Generator
-from collections import *
-
-
-pp = PrettyPrinter(indent=2).pprint
-
-def _mapper(s: str) -> str:
-    i = 0
-    hmap = {}
-    cout = ''
-    for x in s:
-        if hmap.get(x, False):
-            cout += hmap[x]
-        else:
-            hmap[x] = f'{i}-'
-            cout += f'{i}-'
-            i += 1
-    return cout
-
-def adjacent_4(x: int, y: int):
+def adj4(x: int, y: int):
     yield x, y - 1
     yield x + 1, y
     yield x, y + 1
     yield x - 1, y
 
-
-def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
+def adj8(x: int, y: int):
     for y_d in (-1, 0, 1):
         for x_d in (-1, 0, 1):
             if y_d == x_d == 0:
@@ -35,7 +16,8 @@ def adjacent_8(x: int, y: int) -> Generator[tuple[int, int], None, None]:
             yield x + x_d, y + y_d
 
 def main() -> None:
-    func = [x for x in dir(Solution) if not x.startswith('_')][0]
+    pp = PrettyPrinter(indent=2).pprint
+    func, _ = inspect.getmembers(Solution(), predicate=inspect.ismethod)[0]
     print(f'==================[Solution.{func}]===================', end='\n')
     while True:
         try:
