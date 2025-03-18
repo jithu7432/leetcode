@@ -17,19 +17,22 @@ def adj8(x: int, y: int):
 
 def main() -> None:
     pp = PrettyPrinter(indent=2).pprint
-    func, _ = inspect.getmembers(Solution(), predicate=inspect.ismethod)[0]
-    print(f'==================[Solution.{func}]===================', end='\n')
-    while True:
-        try:
-            raw_input = input().strip()
-            if not raw_input:
+    for func, _ in inspect.getmembers(Solution(), predicate=inspect.ismethod):
+        if func.startswith('_'):
+            continue
+        print(f'==================[Solution.{func}]===================', end='\n')
+        while True:
+            try:
+                raw_input = input().strip()
+                if not raw_input:
+                    break
+                if raw_input.startswith('#') or raw_input.startswith("/*"):
+                    continue
+                args = __import__('ast').literal_eval(raw_input)
+                pp(getattr(Solution(), func)(*args))
+            except EOFError:
                 break
-            if raw_input.startswith('#') or raw_input.startswith("/*"):
-                continue
-            args = __import__('ast').literal_eval(raw_input)
-            pp(getattr(Solution(), func)(*args))
-        except EOFError:
-            break
+        break
 
 
 if __name__ == '__main__':
