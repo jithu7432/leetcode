@@ -1,4 +1,6 @@
 from collections import defaultdict
+
+
 class Solution:
     @staticmethod
     def _row(arr) -> bool:
@@ -10,6 +12,7 @@ class Solution:
                         return False
                     hset.add(x)
         return True
+
     @staticmethod
     def _col(arr) -> bool:
         for i in range(9):
@@ -21,6 +24,7 @@ class Solution:
                         return False
                     hset.add(x)
         return True
+
     def _box(self, arr) -> bool:
         hmap = defaultdict(list)
         for i in range(9):
@@ -29,5 +33,6 @@ class Solution:
                 key = i // 3, j // 3
                 hmap[key].append(x)
         return self._row(hmap.values())
+
     def isValidSudoku(self, arr: list[list[str]]) -> bool:
         return self._row(arr) and self._col(arr) and self._box(arr)
