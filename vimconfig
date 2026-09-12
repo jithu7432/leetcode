@@ -1,3 +1,13 @@
-set hls
-au BufWritePost template.py !make
-vs template.py
+vim.opt.hlsearch = true
+
+vim.api.nvim_create_augroup("TemplateMake", { clear = true })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = "TemplateMake",
+  pattern = "template.py",
+  command = "!make",
+})
+
+vim.cmd("only")
+vim.cmd("edit input")
+vim.cmd("vsplit template.py")
