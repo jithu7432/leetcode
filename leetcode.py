@@ -1,12 +1,14 @@
 import inspect
-from template import Solution
+from main import Solution
 from pprint import PrettyPrinter
+
 
 def adj4(x: int, y: int):
     yield x, y - 1
     yield x + 1, y
     yield x, y + 1
     yield x - 1, y
+
 
 def adj8(x: int, y: int):
     for y_d in (-1, 0, 1):
@@ -15,12 +17,14 @@ def adj8(x: int, y: int):
                 continue
             yield x + x_d, y + y_d
 
+
 def main() -> None:
     pp = PrettyPrinter(indent=2).pprint
     for func, _ in inspect.getmembers(Solution(), predicate=inspect.ismethod):
         if func.startswith('_'):
             continue
-        print(f'==================[Solution.{func}]===================', end='\n')
+        print(
+            f'==================[Solution.{func}]===================', end='\n')
         while True:
             try:
                 raw_input = input().strip()

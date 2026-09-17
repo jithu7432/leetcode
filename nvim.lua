@@ -7,10 +7,10 @@ vim.lsp.config("zuban", {
 
 vim.api.nvim_create_autocmd("BufWritePost", {
 	group = "TemplateMake",
-	pattern = "template.py",
+	pattern = "main.py",
 	command = "!make",
 })
 
 vim.cmd("only")
 vim.cmd("edit input")
-vim.cmd("vsplit template.py")
+vim.cmd("vsplit main.py")
